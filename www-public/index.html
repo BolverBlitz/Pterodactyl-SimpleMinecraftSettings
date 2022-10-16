@@ -1,0 +1,386 @@
+<meta charset="utf-8" />
+<head>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/SnackBar.js"></script>
+    <link rel="stylesheet" href="assets/css/SnackBar.css">
+</head>
+<style type="text/css">
+*{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+body{
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+    background: rgba( 71, 147, 227, 1);
+}
+h2{
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    padding: 30px 0;
+}
+
+#overlay {
+	display:none;
+	position:fixed;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:100%;
+	background:#000;
+	opacity:0.4;
+	z-index:99999;
+ }
+ 
+ #popup {
+	display:none;
+	position:fixed;
+	padding: 0.5rem 3rem 0.5rem 1rem;
+	left:50%;
+	top:50%;
+	width:400px;
+	height:230px;
+	border-radius: 0.5rem;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.25);
+    transform: translate(-50%, -50%);
+	background:rgb(53, 110, 171);
+	border:2px solid #000;
+	z-index:100000;
+ }
+
+/* Toggle Swich */
+/* Credit: https://codepen.io/morgoe/pen/VvzWQg */
+
+.toggle {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.toggle-switch {
+  display: inline-block;
+  background: #ccc;
+  margin-top: 6px;
+  border-radius: 16px;
+  width: 58px;
+  height: 32px;
+  position: relative;
+  vertical-align: middle;
+  transition: background 0.25s;
+}
+.toggle-switch:before, .toggle-switch:after {
+  content: "";
+}
+.toggle-switch:before {
+  display: block;
+  background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  transition: left 0.25s;
+}
+.toggle:hover .toggle-switch:before {
+  background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+.toggle-checkbox:checked + .toggle-switch {
+  background: #4FC3A1;
+}
+.toggle-checkbox:checked + .toggle-switch:before {
+  left: 30px;
+}
+
+.toggle-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+
+.toggle-label {
+  margin-left: 6px;
+  margin-right: 40px;
+  position: relative;
+  top: 2px;
+}
+
+/* Table Styles */
+
+.table-wrapper{
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 12px;
+}
+
+.fl-table thead th {
+    color: #ffffff;
+    background: #4FC3A1;
+}
+
+
+.fl-table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #324960;
+}
+
+.fl-table tr:nth-child(even) {
+    background: #F8F8F8;
+}
+
+/* Button */
+
+.button {
+  background-color: #ccc; /* Green */
+  border: none;
+  color: rgb(0, 0, 0);
+  border-radius: 4px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #4FC3A1; /* Green */
+  color: rgb(0, 0, 0);
+}
+
+/* Responsive */
+
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+    }
+    .table-wrapper:before{
+        content: "Scroll horizontally >";
+        display: block;
+        text-align: right;
+        font-size: 11px;
+        color: white;
+        padding: 0 0 10px;
+    }
+    .fl-table thead, .fl-table tbody, .fl-table thead th {
+        display: block;
+    }
+    .fl-table thead th:last-child{
+        border-bottom: none;
+    }
+    .fl-table thead {
+        float: left;
+    }
+    .fl-table tbody {
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+    }
+    .fl-table td, .fl-table th {
+        padding: 20px .625em .625em .625em;
+        height: 60px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 120px;
+        font-size: 13px;
+        text-overflow: ellipsis;
+    }
+    .fl-table thead th {
+        text-align: left;
+        border-bottom: 1px solid #f7f7f9;
+    }
+    .fl-table tbody tr {
+        display: table-cell;
+    }
+    .fl-table tbody tr:nth-child(odd) {
+        background: none;
+    }
+    .fl-table tr:nth-child(even) {
+        background: transparent;
+    }
+    .fl-table tr td:nth-child(odd) {
+        background: #F8F8F8;
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tr td:nth-child(even) {
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tbody td {
+        display: block;
+        text-align: center;
+    }
+}
+</style>
+
+<body>
+    <div id="header"></div>
+    <div id="container"></div>
+    <div id="overlay"></div>
+	<div id="popup">
+	<div id="overlay_content">
+        <label class="toggle">
+            <input type="checkbox" onchange="ModifyValue(this)" class="toggle-checkbox" id="onlineMode" />
+            <span class="toggle-switch"></span>
+            <span class="toggle-label">Online Mode</span>
+        </label>
+        <label class="toggle">
+            <input type="checkbox" onchange="ModifyValue(this)" class="toggle-checkbox" id="enableCommandBlock" />
+            <span class="toggle-switch"></span>
+            <span class="toggle-label">Enable Command Blocks</span>
+        </label>
+        <label class="toggle">
+            <input type="checkbox" onchange="ModifyValue(this)" class="toggle-checkbox" id="pvp" />
+            <span class="toggle-switch"></span>
+            <span class="toggle-label">PVP</span>
+        </label>
+        <label class="toggle">
+            <input type="checkbox" onchange="ModifyValue(this)" class="toggle-checkbox" id="allowFly" />
+            <span class="toggle-switch"></span>
+            <span class="toggle-label">Allow Flight</span>
+        </label>
+        <button class="button" style="bottom: 0; position: relative; margin-left: 130px; margin-top: 10px;" onclick="ExitOverlay(false)">Okay</button>
+    </div>
+</body>
+
+<script>
+const Global = {
+    SnackBox_Timeout: 200,
+    SnackBox_Location: 'tr',
+};//used to store global Stuff in object
+
+function InitTable () {
+    const posting = $.get(`${window.location.href}api/pterodactyl/servers`);
+		posting.done(function(data) {
+            let TableObject = {
+                TableHeadData: ["Name", "Node", "Cpu", "Ram", "Disk", "Operations"],
+                TableData: data
+            }
+                $("#container").html(CreateTable(TableObject));
+        });
+            posting.fail(function(err) {
+			$("#container").html(`Server fehler!`);
+		});
+}
+
+function CreateTable({ TableHeadData, TableData }) {
+	var TableElements = [];
+	TableHeadData.map(part => {
+		TableElements.push(`<th>${part}</th>`)
+	});
+	var TableHead = `<thead><tr>${TableElements.join("")}</tr></thead>`;
+	var TableString = `<div class="table-wrapper"><table class="fl-table">${TableHead}`;
+	var TableEnd = `</table></div>`;
+
+	var TableBody = [];
+	var TableBodyDataPart = [];
+	TableData.map(Data => {
+		for (const [key, value] of Object.entries(Data)) {
+			if(TableHead.includes(key)){
+			let index = TableHeadData.indexOf(key);
+				TableBodyDataPart.splice(index, 0, `<td>${value}</td>`)
+			}
+		}
+		TableBody.push(`<tbody><tr>${TableBodyDataPart.join("")}</tr></tbody>`);
+		TableBodyDataPart = [];
+	});
+
+	return `${TableString}${TableBody.join("")}${TableEnd}`
+}
+
+/* Buttons */
+function Server_Settings(id) {
+    localStorage.setItem("server_id_edit", id);
+    const posting = $.get(`${window.location.href}api/pterodactyl/server/${id}/config`);
+        posting.done(function(data) {
+            console.log(data);
+            const overlay = document.getElementById("overlay");
+            const popup = document.getElementById("popup");
+
+            $('#onlineMode').prop('checked', data.onlineMode === true);
+            $('#enableCommandBlock').prop('checked', data.enableCommandBlock === true);
+            $('#pvp').prop('checked', data.pvp === true);
+            $('#allowFly').prop('checked', data.allowFly === true);
+
+            overlay.style.display = "block";
+            popup.style.display = "block";
+        });
+            posting.fail(function(err) {
+            $("#container").html(`Server fehler!`);
+        });
+}
+
+/* Events */
+function ModifyValue(that){
+    const posting = $.post(`${window.location.href}api/pterodactyl/server/${localStorage.getItem("server_id_edit")}/set/${that.id}`, 
+    JSON.stringify({ "bool_val": that.checked }));
+
+    posting.done(function(data) {
+        // Lets ignore :D
+    });
+
+    posting.fail(function(err) {
+        if(err.status === 0){
+            SnackBar({
+                message: `Server did not response!`,
+                width: "400px",
+                speed: Global.SnackBox_Timeout,
+                position: Global.SnackBox_Location,
+                status: "error",
+            });
+        }else{
+            SnackBar({
+                message: `[${err.status}] ${err.responseJSON.message}`,
+                width: "400px",
+                speed: Global.SnackBox_Timeout,
+                position: Global.SnackBox_Location,
+                status: "error",
+            });
+        }
+    });
+}
+
+
+/**
+ * Will reset overlay and exit it
+ * @param {boolean} reload
+*/
+function ExitOverlay(reload) {
+  document.getElementById("overlay").style.display = "none";
+  document.getElementById("popup").style.display = "none";
+  if(reload) {
+    location.reload(); 
+  }
+}
+
+/* Mein Code */
+$(document).ready(function(){
+    InitTable();
+});
+</script>

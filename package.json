@@ -1,0 +1,22 @@
+{
+  "name": "serverconfeditor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BolverBlitz",
+  "license": "MIT",
+  "_moduleAliases": {
+    "@lib": "lib/",
+    "@src": "src/"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "hyper-express": "^6.4.11",
+    "joi": "^17.6.3",
+    "jspteroapi": "^1.10.1",
+    "module-alias": "^2.2.2"
+  }
+}
