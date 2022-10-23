@@ -44,15 +44,29 @@ router.get('/server/:id/config', async (req, res) => {
             enableCommandBlock: false,
             pvp: false,
             allowFly: false,
+            checked: ['onlineMode', 'enableCommandBlock', 'pvp', 'allowFly'],
+            found: []
         }
 
         const conf_file_array = conf_file.split("\n")
 
         conf_file_array.forEach((line) => {
-            if (line.startsWith("online-mode")) { line.split("=")[1] === "true" ? properties.onlineMode = true : properties.onlineMode = false }
-            if (line.startsWith("enable-command-block")) { line.split("=")[1] === "true" ? properties.enableCommandBlock = true : properties.enableCommandBlock = false }
-            if (line.startsWith("pvp")) { line.split("=")[1] === "true" ? properties.pvp = true : properties.pvp = false }
-            if (line.startsWith("allow-flight")) { line.split("=")[1] === "true" ? properties.allowFly = true : properties.allowFly = false }
+            if (line.startsWith("online-mode")) {
+                line.split("=")[1] === "true" ? properties.onlineMode = true : properties.onlineMode = false
+                properties.found.push("onlineMode")
+            }
+            if (line.startsWith("enable-command-block")) {
+                line.split("=")[1] === "true" ? properties.enableCommandBlock = true : properties.enableCommandBlock = false
+                properties.found.push("enableCommandBlock")
+            }
+            if (line.startsWith("pvp")) {
+                line.split("=")[1] === "true" ? properties.pvp = true : properties.pvp = false
+                properties.found.push("pvp")
+            }
+            if (line.startsWith("allow-flight")) {
+                line.split("=")[1] === "true" ? properties.allowFly = true : properties.allowFly = false
+                properties.found.push("allowFly")
+            }
         });
         res.json(properties);
     } catch (error) {

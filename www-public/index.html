@@ -273,6 +273,12 @@ h2{
 const Global = {
     SnackBox_Timeout: 200,
     SnackBox_Location: 'tr',
+    properties_allowed: {
+    onlineMode: "online-mode",
+    enableCommandBlock: "enable-command-block",
+    pvp: "pvp",
+    allowFly: "allow-flight",
+}
 };//used to store global Stuff in object
 
 function InitTable () {
@@ -319,7 +325,19 @@ function Server_Settings(id) {
     localStorage.setItem("server_id_edit", id);
     const posting = $.get(`${window.location.href}api/pterodactyl/server/${id}/config`);
         posting.done(function(data) {
-            console.log(data);
+            const ItemsNotAvaible = data.found
+                .filter(x => !data.checked.includes(x))
+                .concat(data.checked.filter(x => !data.found.includes(x)));
+            ItemsNotAvaible.map(x => {
+                SnackBar({
+                    message: `${Global.properties_allowed[x]} was not found in the config!`,
+                    width: "400px",
+                    speed: Global.SnackBox_Timeout,
+                    position: Global.SnackBox_Location,
+                    status: "error",
+                });
+            });
+
             const overlay = document.getElementById("overlay");
             const popup = document.getElementById("popup");
 
