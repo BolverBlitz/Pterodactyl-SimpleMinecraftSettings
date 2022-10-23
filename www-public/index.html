@@ -332,7 +332,13 @@ function Server_Settings(id) {
             popup.style.display = "block";
         });
             posting.fail(function(err) {
-            $("#container").html(`Server fehler!`);
+                SnackBar({
+                message: `[${err.status}] ${err.responseJSON.message}`,
+                width: "400px",
+                speed: Global.SnackBox_Timeout,
+                position: Global.SnackBox_Location,
+                status: "error",
+            });
         });
 }
 
